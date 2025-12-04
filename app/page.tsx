@@ -17,27 +17,33 @@ export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
-    if (typeof window !== "undefined") {
-      window.history.scrollRestoration = "manual";
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      window.onbeforeunload = () => window.scrollTo(0, 0);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Drop any hash fragments and force the viewport to the top
-      if (window.location.hash) {
-        history.replaceState(null, "", window.location.pathname + window.location.search);
-      }
+    if (typeof window === "undefined") return;
+    const resetTop = () => {
       window.scrollTo(0, 0);
-      const t = setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-      }, 150);
-      return () => clearTimeout(t);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    window.history.scrollRestoration = "manual";
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
     }
+
+    // Hammer the scroll position a few times to defeat any late focus/anchor jumps
+    resetTop();
+    requestAnimationFrame(resetTop);
+    setTimeout(resetTop, 50);
+    setTimeout(resetTop, 200);
+    setTimeout(resetTop, 500);
+
+    const onShow = () => resetTop();
+    window.addEventListener("pageshow", onShow);
+    window.onbeforeunload = resetTop;
+
+    return () => {
+      window.removeEventListener("pageshow", onShow);
+      window.onbeforeunload = null;
+    };
   }, []);
 
   useEffect(() => {
