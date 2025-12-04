@@ -14,6 +14,7 @@ export default function ContactTerminal() {
   ]);
   
   const inputRef = useRef<HTMLInputElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // EmailJS credentials
@@ -66,7 +67,9 @@ export default function ContactTerminal() {
   };
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [history]);
 
   return (
@@ -86,7 +89,7 @@ export default function ContactTerminal() {
           <span className="ml-4 text-gray-500 text-xs">sh @ guest</span>
         </div>
 
-        <div className="p-4 flex-1 overflow-y-auto custom-scrollbar cursor-text font-bold">
+        <div ref={scrollRef} className="p-4 flex-1 overflow-y-auto custom-scrollbar cursor-text font-bold">
           {history.map((line, i) => (
             <div key={i} className={`mb-1 break-words ${
               line.type === "command" ? "text-white" : 
@@ -107,7 +110,6 @@ export default function ContactTerminal() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               className="bg-transparent border-none outline-none flex-1 text-gray-100 focus:ring-0 placeholder-gray-700"
-              autoFocus
               spellCheck="false"
               autoComplete="off"
             />
