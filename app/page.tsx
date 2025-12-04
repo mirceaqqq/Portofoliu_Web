@@ -19,8 +19,24 @@ export default function Home() {
   useLayoutEffect(() => {
     if (typeof window !== "undefined") {
       window.history.scrollRestoration = "manual";
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       window.onbeforeunload = () => window.scrollTo(0, 0);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Drop any hash fragments and force the viewport to the top
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+      window.scrollTo(0, 0);
+      const t = setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 150);
+      return () => clearTimeout(t);
     }
   }, []);
 
