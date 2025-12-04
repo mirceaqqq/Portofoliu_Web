@@ -6,6 +6,19 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  // Force the page to start at the top on initial load
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+      const reset = () => window.scrollTo(0, 0);
+      window.addEventListener("beforeunload", reset);
+      return () => window.removeEventListener("beforeunload", reset);
+    }
+  }, []);
+
   // Efect simplu de urmărire a mouse-ului pentru background
   useEffect(() => {
     const updateMouse = (e: MouseEvent) => {
