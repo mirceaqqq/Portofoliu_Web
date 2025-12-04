@@ -1,25 +1,45 @@
-"use client"; // Obligatoriu pentru că folosim animații și hook-uri
+"use client";
 
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useLayoutEffect } from "react";
+
+import Projects from "./Projects";
+import About from "./About";
+import Experience from "./Experience";
+import ContactTerminal from "./ContactTerminal";
+import Preloader from "./Preloader";
+import CustomCursor from "./CustomCursor";
+import CommandPalette from "./CommandPalette";
+import Dock from "./Dock";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Force the page to start at the top on initial load
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window !== "undefined") {
-      if ("scrollRestoration" in window.history) {
-        window.history.scrollRestoration = "manual";
-      }
+      window.history.scrollRestoration = "manual";
       window.scrollTo(0, 0);
-      const reset = () => window.scrollTo(0, 0);
-      window.addEventListener("beforeunload", reset);
-      return () => window.removeEventListener("beforeunload", reset);
+      window.onbeforeunload = () => window.scrollTo(0, 0);
     }
   }, []);
 
-  // Efect simplu de urmărire a mouse-ului pentru background
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+      window.scrollTo(0, 0);
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isLoading]);
+
+  const handlePreloaderComplete = () => {
+    setIsLoading(false);
+    document.body.style.overflow = "";
+    window.scrollTo(0, 0);
+  };
+
+
   useEffect(() => {
     const updateMouse = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -28,83 +48,101 @@ export default function Home() {
     return () => window.removeEventListener("mousemove", updateMouse);
   }, []);
 
-  // Varianta pentru animația textului (apare de jos în sus)
-  const textVariant = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1, // Întârziere între elemente
-        duration: 0.8,
-        ease: [0.43, 0.13, 0.23, 0.96] // Efect cinematic
-      }
-    })
-  };
-
   return (
-    <main className="relative h-screen w-full bg-black text-white overflow-hidden flex flex-col items-center justify-center">
+    <>
+      <CustomCursor />
       
-      {/* Background subtil care se mișcă după mouse */}
-      <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/10 pointer-events-none"
-        animate={{
-          x: mousePosition.x / 50,
-          y: mousePosition.y / 50
-        }}
-      />
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <Preloader key="loader" onComplete={handlePreloaderComplete} />
+        ) : (
+          <motion.div 
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="bg-black min-h-screen w-full text-white cursor-none"
+          >
+            {/* Navigation & quick tools */}
+            <CommandPalette />
+            <Dock />
 
-      {/* Cercul strălucitor din spatele textului (Glow effect) */}
-      <div 
-        className="absolute w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"
-        style={{
-          left: mousePosition.x - 250,
-          top: mousePosition.y - 250,
-        }}
-      />
+            {/* Power user hint */}
+            <div className="fixed top-5 right-5 z-50 hidden md:block opacity-30 hover:opacity-100 transition-opacity text-[10px] text-gray-500 font-mono px-2 py-1 rounded bg-black/50 border border-white/10">
+                CMD/CTRL + K
+            </div>
 
-      <div className="z-10 text-center px-4">
-        <motion.p 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
-          transition={{ delay: 0.5 }}
-          className="text-gray-400 mb-4 tracking-[0.3em] uppercase text-sm font-bold"
-        >
-          Portofoliu &bull; 2025
-        </motion.p>
+            {/* Animated background (noise + gradients) */}
+            <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-purple-900/10"
+                  animate={{ x: mousePosition.x / 50, y: mousePosition.y / 50 }}
+                />
+                <div 
+                  className="absolute w-[600px] h-[600px] bg-green-500/5 rounded-full blur-[120px]"
+                  style={{ left: mousePosition.x - 300, top: mousePosition.y - 300 }}
+                />
+            </div>
 
-        {/* Titlu animat pe bucăți */}
-        <h1 className="text-6xl md:text-9xl font-extrabold tracking-tighter leading-tight">
-          <motion.span custom={1} variants={textVariant} initial="hidden" animate="visible" className="block">
-            CREATIVE
-          </motion.span>
-          <motion.span custom={2} variants={textVariant} initial="hidden" animate="visible" className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-            ENGINEER
-          </motion.span>
-        </h1>
+            {/* Hero */}
+            <main id="home" className="relative z-10 h-screen w-full flex flex-col items-center justify-center border-b border-white/5">
+              <div className="text-center px-4">
+                <motion.div 
+                  initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2 }}
+                  className="inline-block mb-6 px-4 py-1 rounded-full border border-green-500/20 bg-green-500/5 backdrop-blur-sm"
+                >
+                  <span className="text-green-400 text-xs font-mono tracking-widest animate-pulse">● CLEARANCE: GRANTED</span>
+                </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.5 }}
-          className="mt-12"
-        >
-          <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform duration-300">
-            Vezi Proiectele Mele
-          </button>
-        </motion.div>
-      </div>
+                <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter leading-none mix-blend-difference mb-6">
+                  SECURITY &
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
+                    SOFTWARE ENGINEER
+                  </span>
+                </h1>
+                
+ <motion.p 
+  initial={{ opacity: 0 }} 
+  animate={{ opacity: 1 }} 
+  transition={{ delay: 1 }}
+  className="mt-6 text-lg text-gray-300 max-w-xl mx-auto font-mono leading-relaxed"
+>
+  Building secure and intelligent systems that connect performance, resilience, and research. 
+  <br />
+  <span className="text-white">Computer Engineering student</span> passionate about <span className="text-green-400">security, AI, and software innovation</span>. 
+  <br />
+</motion.p>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-10 w-full flex justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ delay: 2, duration: 1.5, repeat: Infinity }}
-      >
-        <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white to-transparent"></div>
-      </motion.div>
+              </div>
+              
+              <motion.div 
+                  className="absolute bottom-10 flex flex-col items-center gap-2"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+              >
+                  <span className="text-[10px] uppercase tracking-widest text-gray-700">Explore</span>
+                  <div className="w-[1px] h-10 bg-gradient-to-b from-transparent to-gray-500"></div>
+              </motion.div>
+            </main>
 
-    </main>
+            {/* Main content */}
+            <div className="relative z-10 space-y-32 pb-40">
+              <div id="about"><About /></div>
+              <div id="experience"><Experience /></div>
+              <div id="projects"><Projects /></div>
+              <div id="contact"><ContactTerminal /></div>
+            </div>
+
+            {/* Footer */}
+            <footer className="relative z-10 py-10 border-t border-white/10 text-center mb-20">
+                <p className="text-gray-600 text-sm font-mono">
+                   sudo reboot system © 2025 -- Mircea Ivescu
+                </p>
+            </footer>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
