@@ -788,10 +788,6 @@
     height: calc(var(--spacing) * 32);
   }
 
-  .h-\[300px\] {
-    height: 300px;
-  }
-
   .h-\[400px\] {
     height: 400px;
   }
@@ -822,22 +818,6 @@
 
   .max-h-\[360px\] {
     max-height: 360px;
-  }
-
-  .max-h-\[380px\] {
-    max-height: 380px;
-  }
-
-  .max-h-\[420px\] {
-    max-height: 420px;
-  }
-
-  .max-h-\[460px\] {
-    max-height: 460px;
-  }
-
-  .max-h-\[660px\] {
-    max-height: 660px;
   }
 
   .min-h-screen {
@@ -1182,16 +1162,6 @@
     background-color: var(--color-black);
   }
 
-  .bg-black\/20 {
-    background-color: #0003;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-black\/20 {
-      background-color: color-mix(in oklab, var(--color-black) 20%, transparent);
-    }
-  }
-
   .bg-black\/30 {
     background-color: #0000004d;
   }
@@ -1244,16 +1214,6 @@
 
   .bg-gray-800 {
     background-color: var(--color-gray-800);
-  }
-
-  .bg-gray-900\/50 {
-    background-color: #10182880;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-gray-900\/50 {
-      background-color: color-mix(in oklab, var(--color-gray-900) 50%, transparent);
-    }
   }
 
   .bg-green-500 {
@@ -2105,11 +2065,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  scroll-behavior: auto;
   font-family: Arial, Helvetica, sans-serif;
-}
-
-.locked-scroll {
-  overflow: hidden;
 }
 
 @property --tw-translate-x {

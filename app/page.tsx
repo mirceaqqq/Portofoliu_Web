@@ -22,6 +22,11 @@ export default function Home() {
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
+      // Remove any autofocus that could pull focus down the page
+      document.querySelectorAll("[autofocus]").forEach((el) => {
+        el.removeAttribute("autofocus");
+      });
+      (document.activeElement as HTMLElement | null)?.blur?.();
     };
 
     window.history.scrollRestoration = "manual";
