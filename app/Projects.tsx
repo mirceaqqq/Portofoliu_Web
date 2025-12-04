@@ -12,7 +12,7 @@ const projects = [
     color: "from-slate-950 to-gray-900",
     githubLink: "https://github.com/mirceaqq", 
     liveLink: "#",
-    image: "/projects/static-analyzer.png"
+    image: "/projects/pe.jpg"
   },
   {
     title: "Remote Administration Tool",
@@ -50,7 +50,8 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
     offset: ['start end', 'start start']
   });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
+
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.12, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
@@ -83,13 +84,17 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
             </div>
           </div>
 
-          <div className="relative w-[60%] h-full rounded-2xl overflow-hidden border border-white/5 bg-black/20 group">
+          <div className="relative w-[60%] h-full flex items-center justify-center">
             <motion.div 
-              className="w-full h-full bg-gray-900/50 flex items-center justify-center"
+              className="inline-flex items-center justify-center bg-gradient-to-br from-black/60 via-black/40 to-white/5 p-4 rounded-2xl shadow-2xl border border-white/10"
               style={{ scale: imageScale }}
             >
                {image ? (
-                 <img src={image} alt={title} className="h-full w-full object-cover" />
+                 <img 
+                   src={image} 
+                   alt={title} 
+                   className="max-h-[360px] max-w-full object-contain rounded-xl ring-1 ring-white/15 bg-black/60" 
+                 />
                ) : (
                  <div className="text-center p-10">
                      <div className="mb-4 flex justify-center"><Cpu className="w-16 h-16 text-gray-700" /></div>
