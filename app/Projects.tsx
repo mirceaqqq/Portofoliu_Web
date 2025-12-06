@@ -78,7 +78,7 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
         <div className="flex h-full gap-8 md:gap-10 relative z-10 flex-col md:flex-row">
           <div className="w-full md:w-[45%] flex flex-col justify-between gap-6">
             <div>
-              <h2 className="text-4xl font-bold mb-4 text-white">{title}</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-white">{title}</h2>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{description}</p>
             </div>
             

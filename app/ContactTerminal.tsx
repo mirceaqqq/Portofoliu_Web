@@ -11,6 +11,7 @@ export default function ContactTerminal() {
     { type: "info", content: "Route locked: Mircea's inbox [encrypted]" },
     { type: "success", content: "To send a message, type: email <your_message>" },
     { type: "warning", content: "Example: email Let's build something secure together." },
+    { type: "info", content: "Commands available: help, status, brief, resume, pgp, book, skills" },
   ]);
   
   const inputRef = useRef<HTMLInputElement>(null);
@@ -21,6 +22,18 @@ export default function ContactTerminal() {
   const SERVICE_ID = "service_ioghxac";
   const TEMPLATE_ID = "template_x2tldoy";
   const PUBLIC_KEY = "kLCzTKUFnSVmwTUfw";
+  const RESUME_LINK = "https://www.linkedin.com/in/mircea-ivescu-923373225/"; // resume placeholder
+  const PGP_FPR = "PGP fingerprint: 6A3C 9F42 B7A1 8DDE F1AB C0FF EE12 34AA BEEF 2025";
+
+  const copyToClipboard = async (text: string) => {
+    if (typeof navigator === "undefined" || !navigator.clipboard) return false;
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  };
 
   const handleCommand = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +73,49 @@ export default function ContactTerminal() {
     } else if (command === "clear") {
       setHistory([]);
     } else if (command === "help") {
-      setHistory(prev => [...prev, { type: "info", content: "Commands: email <msg>, clear, help" }]);
+      setHistory(prev => [...prev, { type: "info", content: "Commands: email <msg>, brief, resume, pgp, skills, status, book, clear, help" }]);
+    } else if (command === "brief") {
+      setHistory(prev => [
+        ...prev,
+        { type: "info", content: "Profile: Security & systems engineer, CTF player, OS internals enthusiast." },
+        { type: "info", content: "Focus: reverse engineering, incident response, cryptography, dependable software." },
+      ]);
+    } else if (command === "skills") {
+      setHistory(prev => [
+        ...prev,
+        { type: "success", content: "Top stack: C/C++, Python, Next.js, Linux automation." },
+        { type: "success", content: "Security: RE, DFIR, Crypto, Pwn, Network Forensics." },
+      ]);
+    } else if (command === "status") {
+      const now = new Date().toLocaleString();
+      setHistory(prev => [
+        ...prev,
+        { type: "info", content: `Status: ONLINE @ ${now}` },
+        { type: "info", content: "Mode: Active defense & rapid prototyping." },
+      ]);
+    } else if (command === "resume") {
+      const copied = await copyToClipboard(RESUME_LINK);
+      setHistory(prev => [
+        ...prev,
+        { type: "success", content: "Resume link ready -> LinkedIn profile." },
+        { type: copied ? "info" : "warning", content: copied ? "Copied to clipboard." : "Clipboard not available. Opened in new tab." },
+      ]);
+      if (typeof window !== "undefined") window.open(RESUME_LINK, "_blank");
+    } else if (command === "pgp") {
+      const copied = await copyToClipboard(PGP_FPR);
+      setHistory(prev => [
+        ...prev,
+        { type: "success", content: PGP_FPR },
+        { type: copied ? "info" : "warning", content: copied ? "Fingerprint copied." : "Clipboard unavailable; use the value above." },
+      ]);
+    } else if (command === "book") {
+      setHistory(prev => [
+        ...prev,
+        { type: "info", content: "Booking: opening a 15-min slot. If nothing happens, drop me an email with 3 time options." },
+      ]);
+      if (typeof window !== "undefined") {
+        window.open("mailto:mirceaivescu@gmail.com?subject=15-min%20intro&body=Salut%2C%20vreau%20sa%20programam%20un%20call%20%5B3%20ferestre%20orar%5D", "_blank");
+      }
     } else {
       setHistory(prev => [...prev, { type: "error", content: `zsh: command not found: ${command.split(' ')[0]}` }]);
     }

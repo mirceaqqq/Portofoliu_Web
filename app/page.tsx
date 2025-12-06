@@ -11,6 +11,8 @@ import Preloader from "./Preloader";
 import CustomCursor from "./CustomCursor";
 import CommandPalette from "./CommandPalette";
 import Dock from "./Dock";
+import StatusHUD from "./StatusHUD";
+// Signal marquee removed for a cleaner intro
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -78,6 +80,7 @@ export default function Home() {
   return (
     <>
       <CustomCursor />
+      <StatusHUD />
       
       <AnimatePresence mode="wait">
         {isLoading ? (
@@ -95,8 +98,8 @@ export default function Home() {
             <Dock />
 
             {/* Power user hint */}
-            <div className="fixed top-5 right-5 z-50 hidden md:block opacity-30 hover:opacity-100 transition-opacity text-[10px] text-gray-500 font-mono px-2 py-1 rounded bg-black/50 border border-white/10">
-                CMD/CTRL + K
+            <div className="fixed top-4 right-4 z-50 px-3 py-2 text-xs font-semibold text-white bg-white/10 border border-white/30 rounded-full shadow-lg backdrop-blur hover:bg-white/20 transition">
+              CMD/CTRL + K
             </div>
 
             {/* Animated background (noise + gradients) */}
@@ -113,7 +116,7 @@ export default function Home() {
             </div>
 
             {/* Hero */}
-            <main id="home" className="relative z-10 h-screen w-full flex flex-col items-center justify-center border-b border-white/5">
+            <main id="home" className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center border-b border-white/5">
               <div className="text-center px-4">
                 <motion.div 
                   initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2 }}
@@ -134,7 +137,7 @@ export default function Home() {
   animate={{ opacity: 1 }} 
   transition={{ delay: 1 }}
   className="mt-6 text-base sm:text-lg text-gray-300 max-w-xl mx-auto font-mono leading-relaxed"
->
+ >
   Building secure and intelligent systems that connect performance, resilience, and research. 
   <br />
   <span className="text-white">Computer Engineering student</span> passionate about <span className="text-green-400">security, AI, and software innovation</span>. 
@@ -142,7 +145,6 @@ export default function Home() {
 </motion.p>
 
               </div>
-              
               <motion.div 
                   className="absolute bottom-10 flex flex-col items-center gap-2"
                   animate={{ y: [0, 10, 0] }}
