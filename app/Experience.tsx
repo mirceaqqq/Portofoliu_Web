@@ -22,7 +22,7 @@ const milestones = [
     tech: ["Blue Team", "Incident Response", "Network Defense","TCP/IP","Kernel"]
   },
   {
-    year: "2021 - Present",
+    year: "2022 - Present",
     title: "Military Technical Academy",
     description: "B.Eng. Computer Science (expected 2026).",
     icon: GraduationCap,

@@ -30,7 +30,7 @@ const projects = [
     color: "from-blue-950 to-indigo-900",
     githubLink: "https://github.com/mirceaqqq/ProiectPOO_AcademEase_ATM",
     liveLink: "#",
-    image: "/projects/academ-ease.png"
+    image: "/projects/academ.png"
   },
   {
     title: "HTB Machines",
