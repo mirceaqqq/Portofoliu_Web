@@ -2140,8 +2140,8 @@ function BackgroundGrid() {
             if (!ctx) return;
             const resize = {
                 "BackgroundGrid.useEffect.resize": ()=>{
-                    canvas.width = window.innerWidth * (prefersReducedMotion ? 1 : 1.5);
-                    canvas.height = window.innerHeight * (prefersReducedMotion ? 1 : 1.5);
+                    canvas.width = window.innerWidth * (prefersReducedMotion ? 1 : 1.3);
+                    canvas.height = window.innerHeight * (prefersReducedMotion ? 1 : 1.3);
                 }
             }["BackgroundGrid.useEffect.resize"];
             resize();
@@ -2150,13 +2150,13 @@ function BackgroundGrid() {
             const draw = {
                 "BackgroundGrid.useEffect.draw": ()=>{
                     if (!ctx || !canvas) return;
-                    t += prefersReducedMotion ? 0.001 : 0.004;
+                    t += prefersReducedMotion ? 0.001 : 0.0025;
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.globalCompositeOperation = "source-over";
                     ctx.fillStyle = "#03080c";
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    const spacing = prefersReducedMotion ? 120 : 80;
-                    const offset = Math.sin(t) * spacing / 4;
+                    const spacing = prefersReducedMotion ? 120 : 90;
+                    const offset = Math.sin(t) * spacing / 5;
                     ctx.strokeStyle = "rgba(0,255,170,0.06)";
                     ctx.lineWidth = 1;
                     // Diagonal lines
@@ -2174,7 +2174,7 @@ function BackgroundGrid() {
                     }
                     // Glitch pulse
                     if (!prefersReducedMotion && Math.random() < 0.01) {
-                        ctx.fillStyle = "rgba(147,51,234,0.08)";
+                        ctx.fillStyle = "rgba(147,51,234,0.05)";
                         const gx = Math.random() * canvas.width;
                         const gy = Math.random() * canvas.height;
                         const gw = 120 + Math.random() * 160;
@@ -2199,21 +2199,21 @@ function BackgroundGrid() {
         className: "fixed inset-0 z-0 pointer-events-none",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                className: "absolute w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] bg-emerald-500/10 blur-[120px] rounded-full",
+                className: "absolute w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] bg-emerald-500/10 blur-[140px] rounded-full",
                 animate: {
                     x: [
-                        "-10%",
-                        "10%",
-                        "-8%"
+                        "-6%",
+                        "6%",
+                        "-4%"
                     ],
                     y: [
-                        "-5%",
-                        "5%",
-                        "-4%"
+                        "-3%",
+                        "3%",
+                        "-2%"
                     ]
                 },
                 transition: {
-                    duration: 20,
+                    duration: 28,
                     repeat: Infinity,
                     ease: "easeInOut"
                 }
@@ -2223,21 +2223,21 @@ function BackgroundGrid() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
-                className: "absolute bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] max-w-[700px] max-h-[700px] bg-purple-500/10 blur-[130px] rounded-full",
+                className: "absolute bottom-[-12%] right-[-8%] w-[40vw] h-[40vw] max-w-[700px] max-h-[700px] bg-purple-500/12 blur-[150px] rounded-full",
                 animate: {
                     x: [
-                        "5%",
-                        "-5%",
-                        "6%"
+                        "4%",
+                        "-4%",
+                        "5%"
                     ],
                     y: [
                         "0%",
-                        "-8%",
-                        "4%"
+                        "-6%",
+                        "3%"
                     ]
                 },
                 transition: {
-                    duration: 24,
+                    duration: 32,
                     repeat: Infinity,
                     ease: "easeInOut"
                 }

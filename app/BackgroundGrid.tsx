@@ -15,8 +15,8 @@ export default function BackgroundGrid() {
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width = window.innerWidth * (prefersReducedMotion ? 1 : 1.5);
-      canvas.height = window.innerHeight * (prefersReducedMotion ? 1 : 1.5);
+      canvas.width = window.innerWidth * (prefersReducedMotion ? 1 : 1.3);
+      canvas.height = window.innerHeight * (prefersReducedMotion ? 1 : 1.3);
     };
     resize();
     window.addEventListener("resize", resize);
@@ -24,14 +24,14 @@ export default function BackgroundGrid() {
     let t = 0;
     const draw = () => {
       if (!ctx || !canvas) return;
-      t += prefersReducedMotion ? 0.001 : 0.004;
+      t += prefersReducedMotion ? 0.001 : 0.0025;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.globalCompositeOperation = "source-over";
       ctx.fillStyle = "#03080c";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const spacing = prefersReducedMotion ? 120 : 80;
-      const offset = (Math.sin(t) * spacing) / 4;
+      const spacing = prefersReducedMotion ? 120 : 90;
+      const offset = (Math.sin(t) * spacing) / 5;
       ctx.strokeStyle = "rgba(0,255,170,0.06)";
       ctx.lineWidth = 1;
 
@@ -51,7 +51,7 @@ export default function BackgroundGrid() {
 
       // Glitch pulse
       if (!prefersReducedMotion && Math.random() < 0.01) {
-        ctx.fillStyle = "rgba(147,51,234,0.08)";
+        ctx.fillStyle = "rgba(147,51,234,0.05)";
         const gx = Math.random() * canvas.width;
         const gy = Math.random() * canvas.height;
         const gw = 120 + Math.random() * 160;
@@ -72,14 +72,14 @@ export default function BackgroundGrid() {
   const gradientBlobs = (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <motion.div
-        className="absolute w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] bg-emerald-500/10 blur-[120px] rounded-full"
-        animate={{ x: ["-10%", "10%", "-8%"], y: ["-5%", "5%", "-4%"] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] bg-emerald-500/10 blur-[140px] rounded-full"
+        animate={{ x: ["-6%", "6%", "-4%"], y: ["-3%", "3%", "-2%"] }}
+        transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-[-10%] right-[-5%] w-[40vw] h-[40vw] max-w-[700px] max-h-[700px] bg-purple-500/10 blur-[130px] rounded-full"
-        animate={{ x: ["5%", "-5%", "6%"], y: ["0%", "-8%", "4%"] }}
-        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-[-12%] right-[-8%] w-[40vw] h-[40vw] max-w-[700px] max-h-[700px] bg-purple-500/12 blur-[150px] rounded-full"
+        animate={{ x: ["4%", "-4%", "5%"], y: ["0%", "-6%", "3%"] }}
+        transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
   );
