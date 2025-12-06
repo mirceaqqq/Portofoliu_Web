@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Github, Cpu } from "lucide-react"; 
 
 function useMediaQuery(query: string) {
@@ -18,14 +19,22 @@ function useMediaQuery(query: string) {
   return matches;
 }
 
-const projects = [
+type Project = {
+  title: string;
+  description: string;
+  tags: string[];
+  color: string;
+  githubLink?: string;
+  image?: string;
+};
+
+const projects: Project[] = [
   {
     title: "Static Analyzer and Antivirus",
     description: "Static code analyzer and signature-based anti-virus for PE. Features include control-flow graph generation, string extraction, and malware signature matching.",
     tags: ["Python", "Assembly", "Reverse", "Malware analysis"],
     color: "from-slate-950 to-gray-900",
     githubLink: "https://github.com/mirceaqqq/pe_static_analyzer", 
-    liveLink: "#",
     image: "/projects/pe.jpg"
   },
   {
@@ -34,7 +43,6 @@ const projects = [
     tags: ["C", "OS", "Linux", "Socket Programming"],
     color: "from-emerald-950 to-teal-950",
     githubLink: "https://github.com/mirceaqqq/Remote_Administration_Tool_PSO",
-    liveLink: "#",
     image: "/projects/rat.png"
   },
   {
@@ -43,7 +51,6 @@ const projects = [
     tags: ["C++", "Qt", "SQL", "GUI"],
     color: "from-blue-950 to-indigo-900",
     githubLink: "https://github.com/mirceaqqq/ProiectPOO_AcademEase_ATM",
-    liveLink: "#",
     image: "/projects/academ.png"
   },
   {
@@ -52,12 +59,24 @@ const projects = [
     tags: ["Pentesting", "Kali", "Security", "Scripting"],
     color: "from-purple-950 to-violet-900",
     githubLink: undefined,
-    liveLink: "#",
     image: "/projects/htb.png"
   }
 ];
 
-const Card = ({ i, title, description, tags, color, githubLink, liveLink, image, progress, range, targetScale }: any) => {
+type CardProps = {
+  i: number;
+  title: string;
+  description: string;
+  tags: string[];
+  color: string;
+  githubLink?: string;
+  image?: string;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  range: [number, number];
+  targetScale: number;
+};
+
+const Card = ({ i, title, description, tags, color, githubLink, image, progress, range, targetScale }: CardProps) => {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
@@ -73,7 +92,9 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
     <div ref={container} className="flex items-center justify-center py-12 sm:py-16 md:h-screen md:sticky md:top-0">
       <motion.div 
         style={{ scale, top: isDesktop ? `calc(-5vh + ${i * 25}px)` : 0 }} 
-        className={`flex flex-col md:flex-row gap-8 relative h-auto w-full max-w-[1100px] md:h-[520px] rounded-3xl p-6 sm:p-8 md:p-10 origin-top border border-white/10 bg-gradient-to-br ${color} shadow-2xl overflow-hidden`}
+        className={`group flex flex-col md:flex-row gap-8 relative h-auto w-full max-w-[1100px] md:h-[520px] rounded-3xl p-6 sm:p-8 md:p-10 origin-top border border-white/10 bg-gradient-to-br ${color} shadow-2xl overflow-hidden transition-all duration-700`}
+        animate={isDesktop ? { boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 0 40px rgba(0,255,170,0.12)", "0 0 0 rgba(0,0,0,0)"] } : {}}
+        transition={isDesktop ? { duration: 6, repeat: Infinity, ease: "easeInOut" } : undefined}
       >
         <div className="flex h-full gap-8 md:gap-10 relative z-10 flex-col md:flex-row">
           <div className="w-full md:w-[45%] flex flex-col justify-between gap-6">
@@ -101,15 +122,35 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
 
           <div className="relative w-full md:w-[55%] h-auto md:h-full flex items-center justify-center">
             <motion.div 
-              className="inline-flex items-center justify-center w-full bg-gradient-to-br from-black/60 via-black/40 to-white/5 p-4 rounded-2xl shadow-2xl border border-white/10"
+              className="relative inline-flex items-center justify-center w-full bg-gradient-to-br from-black/60 via-black/40 to-white/5 p-4 rounded-2xl shadow-2xl border border-white/10 overflow-hidden"
               style={{ scale: imageScale }}
             >
                {image ? (
-                 <img 
-                   src={image} 
-                   alt={title} 
-                   className="w-full max-h-[320px] md:max-h-[360px] object-contain rounded-xl ring-1 ring-white/15 bg-black/60" 
-                 />
+                 <div className="relative w-full flex items-center justify-center">
+                   <Image 
+                     src={image} 
+                     alt={title} 
+                     width={900}
+                     height={560}
+                     className="w-full max-h-[320px] md:max-h-[360px] object-contain rounded-xl ring-1 ring-white/15 bg-black/60" 
+                   />
+                   {isDesktop && (
+                     <>
+                       <motion.div
+                         className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-50"
+                         initial={{ x: "-120%" }}
+                         whileHover={{ x: "120%" }}
+                         transition={{ duration: 1.2, ease: "easeInOut" }}
+                       />
+                       <motion.div
+                         className="pointer-events-none absolute inset-0"
+                         style={{ boxShadow: "0 0 0 0 rgba(0,255,170,0.2)" }}
+                         whileHover={{ boxShadow: "0 0 50px 2px rgba(0,255,170,0.25)" }}
+                         transition={{ duration: 0.6, ease: "easeOut" }}
+                       />
+                     </>
+                   )}
+                 </div>
                ) : (
                  <div className="text-center p-10 w-full">
                      <div className="mb-4 flex justify-center"><Cpu className="w-16 h-16 text-gray-700" /></div>

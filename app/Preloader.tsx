@@ -19,7 +19,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
     }, 40); // Typing speed
 
     return () => clearInterval(interval);
-  }, []);
+  }, [fullText, onComplete]);
 
   return (
     <motion.div

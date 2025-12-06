@@ -1,8 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
-const BentoItem = ({ children, className, delay }: any) => {
+type BentoItemProps = {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+};
+
+const BentoItem = ({ children, className = "", delay = 0 }: BentoItemProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -22,7 +29,7 @@ export default function About() {
     <section className="py-20 px-4 max-w-7xl mx-auto">
       <div className="mb-16">
         <h2 className="text-5xl font-bold text-white mb-4">Profile</h2>
-        <p className="text-gray-400">Technical capabilities and background check.</p>
+        <p className="text-gray-400">Security-focused engineer with production experience in hardening systems, investigating incidents, and shipping reliable software.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-4 h-auto md:h-[600px]">
@@ -32,15 +39,22 @@ export default function About() {
           <div className="flex gap-6 items-start z-10">
              {/* Update /public/mircea.jpg to swap the portrait */}
              <div className="w-24 h-24 min-w-[6rem] rounded-2xl overflow-hidden border-2 border-green-500/30 shadow-lg bg-gray-800">
-                <img src="/mircea.jpg" alt="Ivescu Mircea" className="w-full h-full object-cover" />
+                <Image
+                  src="/mircea.jpg"
+                  alt="Ivescu Mircea"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                  priority
+                />
              </div>
              
              <div>
                 <h3 className="text-2xl font-bold text-white mb-1">Ivescu Mircea</h3>
-                <div className="text-xs font-mono text-green-400 mb-3">Computer Engineering Cadet @ MTA "Ferdinand I"</div>
+                <div className="text-xs font-mono text-green-400 mb-3">Computer Engineering Cadet @ MTA &quot;Ferdinand I&quot;</div>
                 <p className="text-gray-300 leading-relaxed text-sm">
-                  Pairing military-grade discipline with deep systems knowledge. I design reliable software, break it to map the failure modes, and harden it again. 
-                  Experienced in <strong>Reverse Engineering</strong>, <strong>OS Design</strong>, and <strong>Cryptography</strong>.
+                  Security engineer comfortable in production: build reliable software, break it to find failure modes, then harden it. 
+                  Hands-on with <strong>Reverse Engineering</strong>, <strong>Cyber Security</strong> and <strong>Cryptography</strong>.
                 </p>
              </div>
           </div>
@@ -92,6 +106,7 @@ export default function About() {
              ))}
            </div>
         </BentoItem>
+
       </div>
     </section>
   );

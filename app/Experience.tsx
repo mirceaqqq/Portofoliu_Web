@@ -69,28 +69,33 @@ export default function Experience() {
               </div>
 
               <div className="w-full md:w-5/12 md:pl-8">
-                <div className="bg-[#0f0f0f] border border-white/10 p-5 md:p-6 rounded-2xl hover:border-green-500/30 transition-colors relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-10 blur transition duration-500"></div>
-                  
-                  <div className="relative bg-[#0f0f0f] rounded-xl p-2">
-                    <span className="text-xs font-mono text-gray-500 mb-2 block">{item.year}</span>
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-2 leading-tight">{item.title}</h3>
-                    <p className="text-gray-400 text-sm md:text-base mb-4 leading-relaxed">
-                      {item.description}
-                    </p>
-                    {item.subItems && (
-                        <div className="mb-4 flex flex-wrap gap-2">
-                            {item.subItems.map(sub => (
-                                <span key={sub} className="text-xs text-white bg-green-500/10 px-2 py-1 rounded border border-green-500/20">{sub}</span>
-                            ))}
+                <div className="relative group">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/0 via-green-500/5 to-blue-500/0 blur-3xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
+                  <div className="relative bg-[#0f0f0f] border border-white/10 p-5 md:p-6 rounded-2xl transition-all duration-400 group-hover:border-white/20 group-hover:bg-[#101010]">
+                    <div className="absolute inset-0 rounded-2xl border border-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative rounded-xl p-2 flex flex-col gap-3">
+                      <div className="flex items-center gap-2 text-xs font-mono text-gray-500">
+                        <span className="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_12px_rgba(74,222,128,0.8)]" />
+                        {item.year}
+                      </div>
+                      <h3 className="text-lg md:text-xl font-bold text-white leading-tight">{item.title}</h3>
+                      <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+                        {item.description}
+                      </p>
+                      {item.subItems && (
+                        <div className="flex flex-wrap gap-2">
+                          {item.subItems.map(sub => (
+                            <span key={sub} className="text-xs text-white/90 bg-white/5 px-2 py-1 rounded-full border border-white/10">{sub}</span>
+                          ))}
                         </div>
-                    )}
-                    <div className="flex flex-wrap gap-2">
-                      {item.tech.map((t) => (
-                        <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-white/5 rounded border border-white/5 text-gray-300">
-                          {t}
-                        </span>
-                      ))}
+                      )}
+                      <div className="flex flex-wrap gap-2">
+                        {item.tech.map((t) => (
+                          <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-white/5 rounded-full border border-white/5 text-gray-300">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useState, useEffect, useLayoutEffect } from "react";
+import { Github, Linkedin } from "lucide-react";
 
 import Projects from "./Projects";
 import About from "./About";
@@ -11,12 +12,12 @@ import Preloader from "./Preloader";
 import CustomCursor from "./CustomCursor";
 import CommandPalette from "./CommandPalette";
 import Dock from "./Dock";
-import StatusHUD from "./StatusHUD";
+import BackgroundGrid from "./BackgroundGrid";
 // Signal marquee removed for a cleaner intro
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const prefersReducedMotion = useReducedMotion();
 
   useLayoutEffect(() => {
     if (typeof window === "undefined") return;
@@ -69,18 +70,9 @@ export default function Home() {
   };
 
 
-  useEffect(() => {
-    const updateMouse = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", updateMouse);
-    return () => window.removeEventListener("mousemove", updateMouse);
-  }, []);
-
   return (
     <>
       <CustomCursor />
-      <StatusHUD />
       
       <AnimatePresence mode="wait">
         {isLoading ? (
@@ -102,24 +94,17 @@ export default function Home() {
               CMD/CTRL + K
             </div>
 
-            {/* Animated background (noise + gradients) */}
-            <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-            <div className="fixed inset-0 z-0 pointer-events-none">
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-purple-900/10"
-                  animate={{ x: mousePosition.x / 50, y: mousePosition.y / 50 }}
-                />
-                <div 
-                  className="absolute w-[600px] h-[600px] bg-green-500/5 rounded-full blur-[120px]"
-                  style={{ left: mousePosition.x - 300, top: mousePosition.y - 300 }}
-                />
-            </div>
+            {/* Animated background */}
+            <BackgroundGrid />
+            <div className="fixed inset-0 z-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
             {/* Hero */}
             <main id="home" className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center border-b border-white/5">
               <div className="text-center px-4">
                 <motion.div 
-                  initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2 }}
+                  initial={prefersReducedMotion ? { opacity: 0 } : { scale: 0 }}
+                  animate={prefersReducedMotion ? { opacity: 1 } : { scale: 1 }}
+                  transition={{ delay: prefersReducedMotion ? 0 : 0.2, duration: prefersReducedMotion ? 0.4 : 0.6, ease: "easeOut" }}
                   className="inline-block mb-6 px-4 py-1 rounded-full border border-green-500/20 bg-green-500/5 backdrop-blur-sm"
                 >
                   <span className="text-green-400 text-xs font-mono tracking-widest animate-pulse">● CLEARANCE: GRANTED</span>
@@ -132,27 +117,29 @@ export default function Home() {
                   </span>
                 </h1>
                 
- <motion.p 
-  initial={{ opacity: 0 }} 
-  animate={{ opacity: 1 }} 
-  transition={{ delay: 1 }}
-  className="mt-6 text-base sm:text-lg text-gray-300 max-w-xl mx-auto font-mono leading-relaxed"
- >
-  Building secure and intelligent systems that connect performance, resilience, and research. 
-  <br />
-  <span className="text-white">Computer Engineering student</span> passionate about <span className="text-green-400">security, AI, and software innovation</span>. 
-  <br />
-</motion.p>
+                <motion.p 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }} 
+                  transition={{ delay: prefersReducedMotion ? 0.4 : 1 }}
+                  className="mt-6 text-base sm:text-lg text-gray-300 max-w-xl mx-auto font-mono leading-relaxed"
+                >
+                  Building secure and intelligent systems that connect performance, resilience, and research. 
+                  <br />
+                  <span className="text-white">Computer Engineering student</span> passionate about <span className="text-green-400">security, AI, and software innovation</span>. 
+                  <br />
+                </motion.p>
 
               </div>
-              <motion.div 
-                  className="absolute bottom-10 flex flex-col items-center gap-2"
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-              >
-                  <span className="text-[10px] uppercase tracking-widest text-gray-700">Explore</span>
-                  <div className="w-[1px] h-10 bg-gradient-to-b from-transparent to-gray-500"></div>
-              </motion.div>
+              {!prefersReducedMotion && (
+                <motion.div 
+                    className="absolute bottom-10 flex flex-col items-center gap-2"
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 2.4, repeat: Infinity }}
+                >
+                    <span className="text-[10px] uppercase tracking-widest text-gray-700">Explore</span>
+                    <div className="w-[1px] h-10 bg-gradient-to-b from-transparent to-gray-500"></div>
+                </motion.div>
+              )}
             </main>
 
             {/* Main content */}
@@ -165,9 +152,18 @@ export default function Home() {
 
             {/* Footer */}
             <footer className="relative z-10 py-10 border-t border-white/10 text-center mb-20">
+                <div className="mx-auto mb-4 h-[2px] w-24 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" />
                 <p className="text-gray-600 text-sm font-mono">
                    sudo reboot system © 2025 -- Mircea Ivescu
                 </p>
+                <div className="mt-3 flex items-center justify-center gap-4 text-gray-500">
+                  <a href="https://github.com/mirceaqqq" target="_blank" rel="noreferrer" className="p-2 rounded-full hover:text-white hover:bg-white/5 transition">
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a href="https://www.linkedin.com/in/mircea-ivescu-923373225/" target="_blank" rel="noreferrer" className="p-2 rounded-full hover:text-white hover:bg-white/5 transition">
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                </div>
             </footer>
           </motion.div>
         )}

@@ -1,7 +1,34 @@
-[00:00:00.836] Server  LOG      ✓ Ready in 597ms
-[00:00:05.147] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:09.045] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
-[00:00:14.643] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:29.767] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:31.808] Server  LOG      ✓ Compiled in 151ms
-[00:00:33.556] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:00:01.063] Server  LOG      ✓ Ready in 809ms
+[00:00:06.991] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:12.932] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:03:03.841] Server  LOG      ✓ Compiled in 46ms
+[00:03:08.029] Server  LOG      ✓ Compiled in 29ms
+[00:03:14.722] Server  LOG      ✓ Compiled in 65ms
+[00:03:32.065] Server  LOG      ✓ Compiled in 83ms
+[00:03:47.591] Server  LOG      ✓ Compiled in 57ms
+[00:04:02.657] Server  LOG      ✓ Compiled in 65ms
+[00:04:11.400] Server  LOG      ✓ Compiled in 201ms
+[00:04:25.251] Server  LOG      ✓ Compiled in 29ms
+[00:07:17.022] Server  LOG      ✓ Compiled in 23ms
+[00:07:18.013] Browser ERROR   uncaughtError: ReferenceError: radarRings is not defined
+[00:07:27.896] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:07:27.920] Server  LOG      ✓ Compiled in 22ms
+[00:07:29.158] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:07:36.370] Server  LOG      ✓ Compiled in 21ms
+[00:07:47.011] Server  LOG      ✓ Compiled in 51ms
+[00:08:02.042] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:09:09.200] Server  LOG      ✓ Compiled in 43ms
+[00:10:00.747] Server  LOG      ✓ Compiled in 71ms
+[00:10:26.114] Server  LOG      ✓ Compiled in 46ms
+[00:10:26.199] Browser ERROR   uncaughtError: ReferenceError: StatusHUD is not defined
+[00:10:29.131] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:10:29.157] Server  LOG      ✓ Compiled in 24ms
+[00:10:29.461] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:10:33.387] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:12:21.094] Server  LOG      ✓ Compiled in 24ms
+[00:12:32.957] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:12:36.763] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:13:14.751] Server  LOG      ✓ Compiled in 26ms
+[00:13:57.961] Server  LOG      ✓ Compiled in 21ms
+[00:14:18.640] Server  LOG      ✓ Compiled in 17ms
+[00:15:52.287] Server  LOG      ✓ Compiled in 17ms

@@ -11,7 +11,7 @@ export default function ContactTerminal() {
     { type: "info", content: "Route locked: Mircea's inbox [encrypted]" },
     { type: "success", content: "To send a message, type: email <your_message>" },
     { type: "warning", content: "Example: email Let's build something secure together." },
-    { type: "info", content: "Commands available: help, status, brief, resume, pgp, book, skills" },
+    { type: "info", content: "Commands available: help, email, status, brief, resume, pgp, skills" },
   ]);
   
   const inputRef = useRef<HTMLInputElement>(null);
@@ -73,7 +73,7 @@ export default function ContactTerminal() {
     } else if (command === "clear") {
       setHistory([]);
     } else if (command === "help") {
-      setHistory(prev => [...prev, { type: "info", content: "Commands: email <msg>, brief, resume, pgp, skills, status, book, clear, help" }]);
+      setHistory(prev => [...prev, { type: "info", content: "Commands: email <msg>, brief, resume, pgp, skills, status, clear, help. Tip: click terminal to focus, ESC to clear input, CMD/CTRL+K opens palette." }]);
     } else if (command === "brief") {
       setHistory(prev => [
         ...prev,
@@ -108,14 +108,6 @@ export default function ContactTerminal() {
         { type: "success", content: PGP_FPR },
         { type: copied ? "info" : "warning", content: copied ? "Fingerprint copied." : "Clipboard unavailable; use the value above." },
       ]);
-    } else if (command === "book") {
-      setHistory(prev => [
-        ...prev,
-        { type: "info", content: "Booking: opening a 15-min slot. If nothing happens, drop me an email with 3 time options." },
-      ]);
-      if (typeof window !== "undefined") {
-        window.open("mailto:mirceaivescu@gmail.com?subject=15-min%20intro&body=Salut%2C%20vreau%20sa%20programam%20un%20call%20%5B3%20ferestre%20orar%5D", "_blank");
-      }
     } else {
       setHistory(prev => [...prev, { type: "error", content: `zsh: command not found: ${command.split(' ')[0]}` }]);
     }
@@ -129,13 +121,15 @@ export default function ContactTerminal() {
 
   return (
     <section className="py-20 px-4 max-w-4xl mx-auto" onClick={() => inputRef.current?.focus()}>
-      <div className="bg-[#0c0c0c] border border-gray-800 rounded-lg shadow-2xl overflow-hidden font-mono text-sm h-[400px] flex flex-col relative">
+      <div className="bg-[#0c0c0c] border border-gray-800 rounded-lg shadow-2xl overflow-hidden font-mono text-sm h-[430px] flex flex-col relative">
         {/* Loading overlay for sending */}
         {isSending && (
             <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-10 backdrop-blur-sm">
                 <span className="text-green-500 animate-pulse">TRANSMITTING DATA...</span>
             </div>
         )}
+
+        <div className="absolute inset-0 pointer-events-none opacity-[0.07] bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0,rgba(255,255,255,0.1)_1px,transparent_1px,transparent_3px)] mix-blend-screen" />
 
         <div className="bg-[#1a1a1a] px-4 py-2 flex gap-2 border-b border-gray-800 items-center">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -144,7 +138,11 @@ export default function ContactTerminal() {
           <span className="ml-4 text-gray-500 text-xs">sh @ guest</span>
         </div>
 
-        <div ref={scrollRef} className="p-4 flex-1 overflow-y-auto custom-scrollbar cursor-text font-bold">
+        <div className="px-4 pt-3 text-[11px] text-emerald-300 uppercase tracking-[0.2em] flex items-center gap-2">
+          <span className="h-[2px] w-6 bg-emerald-400" /> PGP available • Response &lt;24h
+        </div>
+
+        <div ref={scrollRef} className="p-4 flex-1 overflow-y-auto custom-scrollbar cursor-text font-bold relative">
           {history.map((line, i) => (
             <div key={i} className={`mb-1 break-words ${
               line.type === "command" ? "text-white" : 
