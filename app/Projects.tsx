@@ -10,7 +10,7 @@ const projects = [
     description: "Static code analyzer and signature-based anti-virus for PE. Features include control-flow graph generation, string extraction, and malware signature matching.",
     tags: ["Python", "Assembly", "Reverse", "Malware analysis"],
     color: "from-slate-950 to-gray-900",
-    githubLink: "https://github.com/mirceaqq", 
+    githubLink: "https://github.com/mirceaqqq/pe_static_analyzer", 
     liveLink: "#",
     image: "/projects/pe.jpg"
   },

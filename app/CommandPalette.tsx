@@ -14,10 +14,9 @@ export default function CommandPalette() {
     { id: "experience", label: "Go to Experience", icon: FileText, action: () => document.querySelector("#experience")?.scrollIntoView({ behavior: "smooth" }) },
     { id: "projects", label: "Go to Projects", icon: Code, action: () => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }) },
     { id: "contact", label: "Go to Contact", icon: Mail, action: () => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }) },
-    { id: "github", label: "Open GitHub", icon: Github, action: () => window.open("https://github.com/mirceaqq", "_blank") },
-    { id: "linkedin", label: "Open LinkedIn", icon: Linkedin, action: () => window.open("https://www.linkedin.com/in/mirceaqq", "_blank") },
-    { id: "cv", label: "Request CV (email)", icon: FileText, action: () => window.open("mailto:mircea.ivescu@proton.me?subject=CV%20request", "_self") },
-    { id: "email", label: "Copy Email", icon: Mail, action: () => { navigator.clipboard.writeText("mircea.ivescu@proton.me"); alert("Email copied to clipboard."); } },
+    { id: "github", label: "Open GitHub", icon: Github, action: () => window.open("https://github.com/mirceaqqq", "_blank") },
+    { id: "linkedin", label: "Open LinkedIn", icon: Linkedin, action: () => window.open("https://www.linkedin.com/in/mircea-ivescu-923373225", "_blank") },
+    { id: "email", label: "Copy Email", icon: Mail, action: () => { navigator.clipboard.writeText("mirceaivescu@gmail.com"); alert("Email copied to clipboard."); } },
   ];
 
   // Filter commands
