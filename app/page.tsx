@@ -88,7 +88,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="bg-black min-h-screen w-full text-white cursor-none"
+            className="bg-black min-h-screen w-full text-white md:cursor-none"
           >
             {/* Navigation & quick tools */}
             <CommandPalette />
@@ -122,7 +122,7 @@ export default function Home() {
                   <span className="text-green-400 text-xs font-mono tracking-widest animate-pulse">● CLEARANCE: GRANTED</span>
                 </motion.div>
 
-                <h1 className="text-5xl md:text-[7rem] font-bold tracking-tighter leading-none mix-blend-difference mb-6">
+                <h1 className="text-4xl sm:text-5xl md:text-[7rem] font-bold tracking-tighter leading-tight md:leading-none mix-blend-difference mb-6">
                   SECURITY &
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
                     SOFTWARE ENGINEER
@@ -133,7 +133,7 @@ export default function Home() {
   initial={{ opacity: 0 }} 
   animate={{ opacity: 1 }} 
   transition={{ delay: 1 }}
-  className="mt-6 text-lg text-gray-300 max-w-xl mx-auto font-mono leading-relaxed"
+  className="mt-6 text-base sm:text-lg text-gray-300 max-w-xl mx-auto font-mono leading-relaxed"
 >
   Building secure and intelligent systems that connect performance, resilience, and research. 
   <br />

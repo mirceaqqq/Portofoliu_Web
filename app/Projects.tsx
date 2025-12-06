@@ -1,8 +1,22 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Github, Lock, Cpu } from "lucide-react"; 
+import { useEffect, useRef, useState } from "react";
+import { Github, Cpu } from "lucide-react"; 
+
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const handleChange = () => setMatches(media.matches);
+    handleChange();
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, [query]);
+
+  return matches;
+}
 
 const projects = [
   {
@@ -49,22 +63,23 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
     target: container,
     offset: ['start end', 'start start']
   });
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
 
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.12, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
-    <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
+    <div ref={container} className="flex items-center justify-center py-12 sm:py-16 md:h-screen md:sticky md:top-0">
       <motion.div 
-        style={{ scale, top: `calc(-5vh + ${i * 25}px)` }} 
-        className={`flex flex-col relative -top-[25%] h-[500px] w-[1000px] rounded-3xl p-10 origin-top border border-white/10 bg-gradient-to-br ${color} shadow-2xl overflow-hidden`}
+        style={{ scale, top: isDesktop ? `calc(-5vh + ${i * 25}px)` : 0 }} 
+        className={`flex flex-col md:flex-row gap-8 relative h-auto w-full max-w-[1100px] md:h-[520px] rounded-3xl p-6 sm:p-8 md:p-10 origin-top border border-white/10 bg-gradient-to-br ${color} shadow-2xl overflow-hidden`}
       >
-        <div className="flex h-full gap-10 relative z-10">
-          <div className="w-[40%] flex flex-col justify-between">
+        <div className="flex h-full gap-8 md:gap-10 relative z-10 flex-col md:flex-row">
+          <div className="w-full md:w-[45%] flex flex-col justify-between gap-6">
             <div>
               <h2 className="text-4xl font-bold mb-4 text-white">{title}</h2>
-              <p className="text-gray-300 text-lg leading-relaxed">{description}</p>
+              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">{description}</p>
             </div>
             
             <div className="flex flex-wrap gap-2 mt-4">
@@ -75,7 +90,7 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
               ))}
             </div>
 
-            <div className="mt-8 flex gap-4">
+            <div className="mt-2 md:mt-8 flex gap-4">
               {githubLink && (
                 <a href={githubLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 bg-black/30 rounded-lg hover:bg-black/50 transition-colors text-sm font-bold border border-white/10">
                     <Github className="w-4 h-4" /> Source Code
@@ -84,19 +99,19 @@ const Card = ({ i, title, description, tags, color, githubLink, liveLink, image,
             </div>
           </div>
 
-          <div className="relative w-[60%] h-full flex items-center justify-center">
+          <div className="relative w-full md:w-[55%] h-auto md:h-full flex items-center justify-center">
             <motion.div 
-              className="inline-flex items-center justify-center bg-gradient-to-br from-black/60 via-black/40 to-white/5 p-4 rounded-2xl shadow-2xl border border-white/10"
+              className="inline-flex items-center justify-center w-full bg-gradient-to-br from-black/60 via-black/40 to-white/5 p-4 rounded-2xl shadow-2xl border border-white/10"
               style={{ scale: imageScale }}
             >
                {image ? (
                  <img 
                    src={image} 
                    alt={title} 
-                   className="max-h-[360px] max-w-full object-contain rounded-xl ring-1 ring-white/15 bg-black/60" 
+                   className="w-full max-h-[320px] md:max-h-[360px] object-contain rounded-xl ring-1 ring-white/15 bg-black/60" 
                  />
                ) : (
-                 <div className="text-center p-10">
+                 <div className="text-center p-10 w-full">
                      <div className="mb-4 flex justify-center"><Cpu className="w-16 h-16 text-gray-700" /></div>
                      <div className="text-gray-500 font-mono text-sm">SECURE_ARCHIVE_FILE_{i+1}</div>
                  </div>
@@ -117,7 +132,7 @@ export default function Projects() {
   });
 
   return (
-    <div ref={container} className="relative mt-[20vh] mb-[50vh] px-4">
+    <div ref={container} className="relative mt-24 md:mt-[20vh] mb-32 md:mb-[50vh] px-4">
         <div className="mb-32 px-4 text-center">
             <h2 className="text-5xl md:text-7xl font-bold text-white mb-6">Projects</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">

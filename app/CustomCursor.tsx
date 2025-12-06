@@ -4,14 +4,26 @@ import { motion } from "framer-motion";
 
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isPointerFine, setIsPointerFine] = useState(false);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(pointer: fine)");
+    const updatePointerState = () => setIsPointerFine(mediaQuery.matches);
+    updatePointerState();
+    mediaQuery.addEventListener("change", updatePointerState);
+
     const updateMouse = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("mousemove", updateMouse);
-    return () => window.removeEventListener("mousemove", updateMouse);
+
+    return () => {
+      window.removeEventListener("mousemove", updateMouse);
+      mediaQuery.removeEventListener("change", updatePointerState);
+    };
   }, []);
+
+  if (!isPointerFine) return null;
 
   return (
     <motion.div
