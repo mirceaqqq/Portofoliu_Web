@@ -1,0 +1,8 @@
+module.exports=[72123,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(11857);a.n(d("[project]/node_modules/next/dist/client/script.js <module evaluation>"))},44536,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(11857);a.n(d("[project]/node_modules/next/dist/client/script.js"))},11153,a=>{"use strict";a.i(72123);var b=a.i(44536);a.n(b)},71618,(a,b,c)=>{b.exports=a.r(11153)},89578,a=>{a.v({className:"geist_a71539c9-module__T19VSG__className",variable:"geist_a71539c9-module__T19VSG__variable"})},35214,a=>{a.v({className:"geist_mono_8d43a2aa-module__8Li5zG__className",variable:"geist_mono_8d43a2aa-module__8Li5zG__variable"})},33290,a=>{"use strict";var b=a.i(7997),c=a.i(71618),d=a.i(89578);let e={className:d.default.className,style:{fontFamily:"'Geist', 'Geist Fallback'",fontStyle:"normal"}};null!=d.default.variable&&(e.variable=d.default.variable);var f=a.i(35214);let g={className:f.default.className,style:{fontFamily:"'Geist Mono', 'Geist Mono Fallback'",fontStyle:"normal"}};function h({children:a}){return(0,b.jsx)("html",{lang:"en",children:(0,b.jsxs)("body",{className:`${e.variable} ${g.variable} antialiased`,children:[(0,b.jsx)(c.default,{id:"scroll-lock",strategy:"beforeInteractive",children:`
+            if ('scrollRestoration' in history) {
+              history.scrollRestoration = 'manual';
+            }
+            window.scrollTo(0, 0);
+          `}),a]})})}null!=f.default.variable&&(g.variable=f.default.variable),a.s(["default",()=>h,"metadata",0,{title:"Mircea Ivescu | Security & Systems Engineer",description:"Security-focused systems engineer and CTF competitor building reliable solutions."}],33290)}];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__00b7b5cc._.js.map

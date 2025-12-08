@@ -34,9 +34,15 @@ const filteredAndSorted = (
 ) => {
   const normalized = search.toLowerCase();
 
+  const dateValue = (val?: string) => {
+    if (!val) return 0;
+    const ts = new Date(val).getTime();
+    return Number.isNaN(ts) ? 0 : ts;
+  };
+
   const sorted = [...data].sort((a, b) => {
-    const aDate = a.publishedAt || a.release || a.updatedAt || a.createdAt || "";
-    const bDate = b.publishedAt || b.release || b.updatedAt || b.createdAt || "";
+    const aDate = dateValue(a.publishedAt || a.release || a.updatedAt || a.createdAt);
+    const bDate = dateValue(b.publishedAt || b.release || b.updatedAt || b.createdAt);
     return bDate - aDate;
   });
 

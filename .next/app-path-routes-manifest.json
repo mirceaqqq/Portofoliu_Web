@@ -1,6 +1,11 @@
 {
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
+  "/api/writeups/[slug]/route": "/api/writeups/[slug]",
+  "/api/writeups/route": "/api/writeups",
+  "/blog/[slug]/page": "/blog/[slug]",
+  "/blog/editor/page": "/blog/editor",
+  "/blog/page": "/blog",
   "/favicon.ico/route": "/favicon.ico",
   "/page": "/"
 }
