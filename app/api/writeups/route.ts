@@ -27,16 +27,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "slug si title sunt obligatorii" }, { status: 400 });
     }
     const prepared: WriteUp = {
-      highlights: [],
-      sections: [],
-      tags: [],
-      skills: [],
-      status: "Draft",
-      type: "Machine",
-      difficulty: "Easy",
-      target: body.title,
-      summary: body.summary || "",
       ...body,
+      highlights: body.highlights ?? [],
+      sections: body.sections ?? [],
+      tags: body.tags ?? [],
+      skills: body.skills ?? [],
+      status: body.status ?? "Draft",
+      type: body.type ?? "Machine",
+      difficulty: body.difficulty ?? "Easy",
+      target: body.target ?? body.title,
+      summary: body.summary ?? "",
     };
     const saved = await upsertWriteup(prepared);
     return NextResponse.json({ ok: true, data: saved });
