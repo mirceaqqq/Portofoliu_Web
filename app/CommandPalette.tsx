@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Home, User, Code, Mail, FileText, Github, Linkedin } from "lucide-react";
+import { Search, Home, User, Code, Mail, FileText, Github, Linkedin, NotebookPen } from "lucide-react";
 
 export default function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +13,7 @@ export default function CommandPalette() {
     { id: "about", label: "Go to About", icon: User, action: () => document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }) },
     { id: "experience", label: "Go to Experience", icon: FileText, action: () => document.querySelector("#experience")?.scrollIntoView({ behavior: "smooth" }) },
     { id: "projects", label: "Go to Projects", icon: Code, action: () => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" }) },
+    { id: "blog", label: "Open Blog", icon: NotebookPen, action: () => window.location.assign("/blog") },
     { id: "contact", label: "Go to Contact", icon: Mail, action: () => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }) },
     { id: "github", label: "Open GitHub", icon: Github, action: () => window.open("https://github.com/mirceaqqq", "_blank") },
     { id: "linkedin", label: "Open LinkedIn", icon: Linkedin, action: () => window.open("https://www.linkedin.com/in/mircea-ivescu-923373225", "_blank") },

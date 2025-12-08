@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Github, Linkedin } from "lucide-react";
@@ -128,6 +129,21 @@ export default function Home() {
                   <span className="text-white">Computer Engineering student</span> passionate about <span className="text-green-400">security, AI, and software innovation</span>. 
                   <br />
                 </motion.p>
+
+                <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm">
+                  <a
+                    href="#projects"
+                    className="px-5 py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 transition"
+                  >
+                    Vezi proiectele
+                  </a>
+                  <Link
+                    href="/blog"
+                    className="px-5 py-2 rounded-full border border-green-500/40 bg-green-500/10 text-green-200 hover:bg-green-500/20 hover:border-green-400 transition"
+                  >
+                    Blog &amp; write-ups
+                  </Link>
+                </div>
 
               </div>
               {!prefersReducedMotion && (

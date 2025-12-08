@@ -1,3 +1,24 @@
-[00:00:00.797] Server  LOG      ✓ Ready in 557ms
-[00:00:07.888] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:13.435] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:00:03.665] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:03.869] Server  LOG      ✓ Ready in 2.9s
+[00:00:11.066] Server  LOG      ○ Compiling / ...
+[00:00:15.045] Server  WARN     ⚠ Cross origin request detected from 172.20.10.3 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:00:15.088] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:18.632] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:13:12.804] Server  LOG      ✓ Compiled in 69ms
+[00:14:11.453] Server  LOG      ✓ Compiled in 100ms
+[00:15:12.700] Server  LOG      ✓ Compiled in 40ms
+[00:15:27.742] Server  LOG      ✓ Compiled in 39ms
+[00:15:31.937] Server  LOG      ✓ Compiled in 36ms
+[00:16:01.350] Server  LOG      ✓ Compiled in 78ms
+[00:16:45.684] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/blog/cover.png" "received" null
+[00:21:49.763] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/public/blog/screenshot1.jpg" "received" null
+[00:24:01.942] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:33:40.072] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:33:42.116] Server  ERROR    ⨯ "The requested resource isn't a valid image for" "/public/blog/screenshot1.jpg" "received" null
+[00:33:54.158] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:34:29.306] Server  LOG      ✓ Compiled in 73ms
+[00:34:36.615] Server  LOG      ✓ Compiled in 19ms
+[00:34:43.698] Server  LOG      ✓ Compiled in 32ms
+[00:34:49.000] Server  LOG      ✓ Compiled in 28ms
+[00:36:16.221] Server  LOG      ✓ Compiled in 26ms

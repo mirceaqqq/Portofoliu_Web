@@ -1,10 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Home, User, Code, Mail, Github, Linkedin, FileText } from "lucide-react";
+import { Home, User, Code, Mail, Github, Linkedin, FileText, NotebookPen } from "lucide-react";
 
 export default function Dock() {
   const scrollTo = (id: string) => {
+    if (id === "blog") {
+        window.location.assign("/blog");
+        return;
+    }
     if(id === "home") {
         window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -17,6 +21,7 @@ export default function Dock() {
     { id: "about", icon: User, label: "About" },
     { id: "experience", icon: FileText, label: "Timeline" },
     { id: "projects", icon: Code, label: "Projects" },
+    { id: "blog", icon: NotebookPen, label: "Blog" },
     { id: "contact", icon: Mail, label: "Contact" },
   ];
 
