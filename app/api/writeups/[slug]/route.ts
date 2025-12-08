@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import { deleteWriteup, getWriteupBySlug, upsertWriteup } from "@/app/lib/writeups";
 import type { WriteUp } from "@/app/blog/writeups";
@@ -12,17 +12,19 @@ function requireAuth(req: Request) {
   return headerKey === API_KEY;
 }
 
-export async function GET(_: Request, { params }: { params: { slug: string } }) {
-  const writeup = await getWriteupBySlug(params.slug);
+export async function GET(_: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const writeup = await getWriteupBySlug(slug);
   if (!writeup) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json({ data: writeup });
 }
 
-export async function PUT(request: Request, { params }: { params: { slug: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   if (!requireAuth(request)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   try {
+    const { slug } = await params;
     const body = (await request.json()) as WriteUp;
-    const merged: WriteUp = { ...body, slug: params.slug };
+    const merged: WriteUp = { ...body, slug };
     const saved = await upsertWriteup(merged);
     return NextResponse.json({ ok: true, data: saved });
   } catch (err) {
@@ -31,10 +33,11 @@ export async function PUT(request: Request, { params }: { params: { slug: string
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { slug: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   if (!requireAuth(request)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   try {
-    await deleteWriteup(params.slug);
+    const { slug } = await params;
+    await deleteWriteup(slug);
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error(err);
